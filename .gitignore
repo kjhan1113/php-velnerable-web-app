@@ -1,0 +1,34 @@
+# ===== PHP =====
+/vendor/
+/node_modules/
+*.log
+
+# Composer
+composer.phar
+composer.lock
+
+# Environment files
+.env
+.env.*
+
+# Cache / temp files
+/cache/
+/tmp/
+/storage/logs/
+
+# PHPUnit
+/phpunit.xml.cache
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# ===== VSCode =====
+.vscode/
+*.code-workspace
+
+# Debug
+launch.json
+settings.json
+tasks.json
+
