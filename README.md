@@ -29,10 +29,13 @@ To ensure maximum readability, the codebase is kept simple and minimal using pur
 
 #### Implemented Vulnerabilities & Scenarios
 
-##### 1. SQL Injection (SQLi)
+##### [1. SQL Injection (SQLi)](docs/01-sql-injection.md)
 
 - **Vulnerable (`v1`):** Dynamic string concatenation in `mysqli_query()` allowing authentication bypass and data exfiltration.
+
 - **Secure Patch (`v2`):** Mitigated using **PDO with Prepared Statements** and parameterized queries.
+
+- [read more...](doc)
 
 ##### 2. Remote Code Execution (RCE) via Command Injection
 

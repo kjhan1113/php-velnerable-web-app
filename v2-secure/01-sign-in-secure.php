@@ -1,6 +1,6 @@
 <?php
 session_start();
-include __DIR__ . '/../db_connection.php';
+include __DIR__ . '/../db-connection.php';
 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 

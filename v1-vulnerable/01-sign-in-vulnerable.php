@@ -1,6 +1,6 @@
 <?php
 session_start();
-include __DIR__ . '/../db_connection.php';
+include __DIR__ . '/../db-connection.php';
 
 if (isset($_SESSION['username'])) {
   header("Location: dashboard.php");
