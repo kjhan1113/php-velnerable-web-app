@@ -13,6 +13,7 @@ To ensure maximum readability, the codebase is kept simple and minimal using pur
 - **Frontend:** Bootstrap 5.3.x
 
 - **DB:** MariaDB 11.8.6
+
 - **DB connection:** Configure database connection in `db.php`
 
 - **DB DDL:**
@@ -40,9 +41,11 @@ To ensure maximum readability, the codebase is kept simple and minimal using pur
 ##### 2. Remote Code Execution (RCE) via Command Injection
 
 - **Vulnerable (`v1`):** Insecure use of system-level execution functions (`system()`, `shell_exec()`) without input sanitization.
+
 - **Secure Patch (`v2`):** Replaced with strict argument whitelisting and proper argument escaping.
 
 ##### 3. Unrestricted File Upload (Reverse Shell)
 
 - **Vulnerable (`v1`):** Missing extension and MIME-type validation, storing files in an executable directory.
+
 - **Secure Patch (`v2`):** Implemented strict file extension/MIME-type validation, file renaming (`bin2hex(random_bytes)`), and disabling execution permissions in the upload directory.

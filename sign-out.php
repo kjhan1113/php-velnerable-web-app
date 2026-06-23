@@ -3,5 +3,5 @@ session_start();
 session_unset();     // Remove session variable
 session_destroy();   // Destroy session
 
-header("Location: login.php");
+header("Location: home.php");
 exit;
