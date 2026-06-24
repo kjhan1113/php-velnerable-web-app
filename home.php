@@ -8,16 +8,11 @@
   <meta name="generator" content="Astro v5.13.2" />
   <title>Album example · Bootstrap v5.3</title>
   <link href="/assets/bootstrap.min.css" rel="stylesheet" />
+  <link href="/assets/home.css" rel="stylesheet" />
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-sm bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="home.php">Navbar</a>
-      <a href="v1-vulnerable/01-sign-in-vulnerable.php" class="btn btn-success" role="button">Login</a>
-    </div>
-  </nav>
-  </header>
+  <?php include __DIR__ . '/includes/nav.php'; ?>
   <main>
     <section class="py-5 text-center container">
       <div class="row py-lg-5">
@@ -40,50 +35,47 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
           <div class="col">
             <div class="card shadow-sm">
-
               <div class="card-body">
                 <h5 class="card-title">
-                  <a href="v1-vulnerable/01-sign-in-vulnerable.php" class="link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">SQLi</a>
+                  <a href="/v1-vulnerable/01-sign-in-vulnerable.php"
+                    class="link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                    SQL Injection
+                  </a>
                 </h5>
-                <p class="card-text">
-                  This is a wider card with supporting text below as a natural
-                  lead-in to additional content. This content is a little bit
-                  longer.
+                <p class="card-text card-fixed">
+                  A login page was implemented to demonstrate SQL injection.
                 </p>
                 <div
                   class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
-                    <button
-                      type="button"
-                      class="btn btn-sm btn-outline-secondary">
+                    <a href="/v1-vulnerable/01-sign-in-vulnerable.php"
+                      class="btn btn-sm btn-outline-secondary" role="button">
                       View
-                    </button>
-
+                    </a>
                   </div>
-                  <small class="text-body-secondary">9 mins</small>
                 </div>
               </div>
             </div>
           </div>
           <div class="col">
             <div class="card shadow-sm">
-
               <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  This is a wider card with supporting text below as a natural
-                  lead-in to additional content. This content is a little bit
-                  longer.
+                <h5 class="card-title">
+                  <a href="/v2-secure/01-sign-in-secure.php"
+                    class="link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                    Secured login
+                  </a>
+                </h5>
+                <p class="card-text card-fixed">
+                  Secure SQL execution was implemented using prepared statements to prevent SQL injection.
                 </p>
                 <div
                   class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
-                    <button
-                      type="button"
-                      class="btn btn-sm btn-outline-secondary">
+                    <a href="/v2-secure/01-sign-in-secure.php"
+                      class="btn btn-sm btn-outline-secondary" role="button">
                       View
-                    </button>
-
+                    </a>
                   </div>
                   <small class="text-body-secondary">9 mins</small>
                 </div>

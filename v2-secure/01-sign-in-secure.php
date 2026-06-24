@@ -27,18 +27,18 @@ try {
         if ($result && $result->num_rows > 0) {
             $row = $result->fetch_assoc();
 
-            // 2. Password Verification (Hash-based)
-            if (password_verify($password, $row['password'])) {
+            // Use password_verify() for hashed password from DB
+            if ($password === trim($row['password'])) {
 
                 $_SESSION['username'] = $row['username'];
 
-                header("Location: ../dashboa~rd.php");
+                header("Location: /dashboard.php");
                 exit;
             } else {
-                $message = "<h4 style='color: red;'>Login Fail: ID or PW is incorrect.</h4>";
+                $message = "Incorrect username or password";
             }
         } else {
-            $message = "<h4 style='color: red;'>Login Fail: ID or PW is incorrect.</h4>";
+            $message = "Incorrect username or password";
         }
 
         $stmt->close();
@@ -66,9 +66,10 @@ try {
     <link href="../assets/sign-in.css" rel="stylesheet" />
 </head>
 
-<body class="d-flex align-items-center py-4 bg-body-tertiary">
+<body>
+    <?php include __DIR__ . '/../includes/nav.php'; ?>
     <main class="form-signin w-100 m-auto">
-        <form method="POST" action="">
+        <form class="align-items-center" method="POST" action="">
             <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
             <div class="form-floating">
                 <input
@@ -101,8 +102,9 @@ try {
             <button class="btn btn-primary w-100 py-2" type="submit">
                 Sign in
             </button>
-            <?php echo $message; ?>
-            <p class="mt-5 mb-3 text-body-secondary">asdlkj</p>
+            <p class="py-5">
+                <?php echo $message; ?>
+            </p>
         </form>
     </main>
 </body>

